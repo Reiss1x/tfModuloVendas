@@ -1,5 +1,8 @@
 package com.pucrs.modulovendas.domain;
 
-public class IPedidoRepository {
-    
+import com.pucrs.modulovendas.entities.Pedido;
+
+public interface IPedidoRepository {
+    public Pedido getPedido();
+    public void addPedidos();
 }

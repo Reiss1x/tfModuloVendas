@@ -62,7 +62,7 @@ public class LojaController {
 
     //solicitar orcamento específico (visualizar)
     @GetMapping("/admin/pedidos/{pedidoId}/solicitarOrcamento")
-    public String postSolicitarOrcamento(@PathVariable int pedidoId){
+    public String postSolicitarOrcamento(@PathVariable Long pedidoId){
         return vs.getOrcamento(pedidoId).toString();
     }
 
@@ -74,7 +74,7 @@ public class LojaController {
 
     //efetuar compra
     @GetMapping("/admin/orcamentos/{orcamentoId}/efetivar")
-    public Orcamento efetivarOrcamento(@PathVariable int orcamentoId){
+    public Orcamento efetivarOrcamento(@PathVariable Long orcamentoId){
         List<Produto> listaProd = es.getProds();
         return vs.efetivarOrcamento(orcamentoId, listaProd);
     }

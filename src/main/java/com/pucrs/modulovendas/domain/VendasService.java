@@ -11,13 +11,13 @@ import com.pucrs.modulovendas.entities.Item;
 import com.pucrs.modulovendas.entities.Orcamento;
 import com.pucrs.modulovendas.entities.Pedido;
 import com.pucrs.modulovendas.entities.Produto;
-import com.pucrs.modulovendas.persistence.OrcamentoRepository;
+import com.pucrs.modulovendas.persistence.IOrcamentoRepositoryJPA;
 
 @Service
 public class VendasService {
     
     @Autowired
-    private OrcamentoRepository op;
+    private IOrcamentoRepositoryJPA op;
 
     public Pedido postPedido(Pedido ped, List<Produto> produtos){
         postOrcamento(ped, 0, produtos);
@@ -25,15 +25,19 @@ public class VendasService {
     }
 
     public List<Pedido> getPedidos() {
-        return op.getPedidos();
+        return op.findAllPedido();
     }
 
     public List<Orcamento> getOrcamentos() {
-        return op.getOrcamentos();
+        return op.findAllOrcamento();
     }
 
-    public Orcamento getOrcamento(int orcamentoId) {
-        return op.getOrcamentoById(orcamentoId);
+    public Orcamento getOrcamento(Long orcamentoId) {
+        if(op.findOrcamentoBycod(orcamentoId).isPresent()){
+            return op.findOrcamentoBycod(orcamentoId).get();
+        } else {
+            throw new IllegalArgumentException("Orcamento: "+ orcamentoId +" não existe");
+        }
     }
 
     public Orcamento postOrcamento(Pedido ped, int data,List<Produto> produtos){
@@ -46,12 +50,12 @@ public class VendasService {
             }
         }
         Orcamento orc = new Orcamento(data, ped, somatorio);
-        op.postOrcamento(orc);
+        op.save(orc);
         return orc;
     }
 
-    public Orcamento efetivarOrcamento(int orcamentoId, List<Produto> produtos){
-        Orcamento orc = op.getOrcamentoById(orcamentoId);
+    public Orcamento efetivarOrcamento(Long orcamentoId, List<Produto> produtos){
+        Orcamento orc = getOrcamento(orcamentoId);
         Pedido p = orc.getPedido();
         for (Item item : p.getListaProd()){
             Optional<Produto> aux = produtos.stream().filter(i -> i.getCod() == item.getProdId()).findFirst();
@@ -75,6 +79,6 @@ public class VendasService {
     }
 
     public List<Orcamento> getRelatorio() {
-        return op.getOrcamentos().stream().filter(x -> x.getEfetivado() == true).collect(Collectors.toList());
+        return op.findAllOrcamento().stream().filter(x -> x.getEfetivado() == true).collect(Collectors.toList());
     }
 }

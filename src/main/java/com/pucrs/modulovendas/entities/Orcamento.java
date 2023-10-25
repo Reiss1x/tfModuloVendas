@@ -1,9 +1,15 @@
 package com.pucrs.modulovendas.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-
-
+@Entity
 public class Orcamento {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long cod;
     private int id;
     private int data;
     private String nomeCliente;
@@ -13,12 +19,15 @@ public class Orcamento {
     
     
     public Orcamento(int data, Pedido pedido, int somatorio) {
-        this.id = pedido.getId();
         this.data = data;
         this.nomeCliente = pedido.getNomeCliente();
         this.pedido = pedido;
         this.somatorio = somatorio;
         this.efetivado = false;
+    }
+
+    protected Orcamento(){
+        
     }
 
     public Boolean getEfetivado() {

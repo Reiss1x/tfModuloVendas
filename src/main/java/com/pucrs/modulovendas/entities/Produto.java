@@ -1,6 +1,7 @@
 package com.pucrs.modulovendas.entities;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,21 +10,18 @@ import jakarta.persistence.Id;
 @Entity
 public class Produto {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Long cod;
     private String desc;
     private int preco;
+    @Column(name = "cl_qntmin")
     private int qntMin;
+    @Column(name = "cl_qntmax")
     private int qntMax;
     private int qnt;
 
-    protected Produto(Long cod, String desc, int preco, int qntMin, int qntMax, int qnt){
-        this.cod = cod;
-        this.desc = desc;
-        this.preco = preco;
-        this.qntMin = qntMin;
-        this.qntMax = qntMax;
-        this.qnt = qnt;
+    protected Produto(){
     }
 
 

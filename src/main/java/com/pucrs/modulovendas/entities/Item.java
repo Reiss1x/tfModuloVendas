@@ -1,16 +1,21 @@
 package com.pucrs.modulovendas.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
 @Entity
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cl_cod")
     private Long cod;
+    @Column(name = "cl_prodId")
     private int prodId;
+    @Column(name = "cl_quantidade")
     private int quantidade;
 
     public void setProdId(int prodId) {

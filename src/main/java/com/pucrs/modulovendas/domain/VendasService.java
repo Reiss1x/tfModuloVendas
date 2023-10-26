@@ -12,12 +12,15 @@ import com.pucrs.modulovendas.entities.Orcamento;
 import com.pucrs.modulovendas.entities.Pedido;
 import com.pucrs.modulovendas.entities.Produto;
 import com.pucrs.modulovendas.persistence.IOrcamentoRepositoryJPA;
+import com.pucrs.modulovendas.persistence.IPedidosRepositoryJPA;
 
 @Service
 public class VendasService {
     
     @Autowired
     private IOrcamentoRepositoryJPA op;
+    @Autowired
+    private IPedidosRepositoryJPA pr;
 
     public Pedido postPedido(Pedido ped, List<Produto> produtos){
         postOrcamento(ped, 0, produtos);
@@ -25,16 +28,16 @@ public class VendasService {
     }
 
     public List<Pedido> getPedidos() {
-        return op.findAllPedido();
+        return pr.findAll();
     }
 
     public List<Orcamento> getOrcamentos() {
-        return op.findAllOrcamento();
+        return op.findAll();
     }
 
     public Orcamento getOrcamento(Long orcamentoId) {
-        if(op.findOrcamentoBycod(orcamentoId).isPresent()){
-            return op.findOrcamentoBycod(orcamentoId).get();
+        if(op.findBycod(orcamentoId).isPresent()){
+            return op.findBycod(orcamentoId).get();
         } else {
             throw new IllegalArgumentException("Orcamento: "+ orcamentoId +" não existe");
         }
@@ -49,7 +52,8 @@ public class VendasService {
                 somatorio += prod.getPreco();
             }
         }
-        Orcamento orc = new Orcamento(data, ped, somatorio);
+        Orcamento orc = new Orcamento(data, somatorio);
+        orc.setPedido(ped);
         op.save(orc);
         return orc;
     }
@@ -79,6 +83,6 @@ public class VendasService {
     }
 
     public List<Orcamento> getRelatorio() {
-        return op.findAllOrcamento().stream().filter(x -> x.getEfetivado() == true).collect(Collectors.toList());
+        return op.findAll().stream().filter(x -> x.getEfetivado() == true).collect(Collectors.toList());
     }
 }

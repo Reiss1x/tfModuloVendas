@@ -1,5 +1,6 @@
 package com.pucrs.modulovendas.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pucrs.modulovendas.entities.Item;
+import com.pucrs.modulovendas.entities.ItemDTO;
 import com.pucrs.modulovendas.entities.Orcamento;
 import com.pucrs.modulovendas.entities.Pedido;
+import com.pucrs.modulovendas.entities.PedidoDTO;
 import com.pucrs.modulovendas.entities.Produto;
 import com.pucrs.modulovendas.persistence.IGalpaoRepositoryJPA;
 import com.pucrs.modulovendas.persistence.IOrcamentoRepositoryJPA;
@@ -25,9 +28,18 @@ public class VendasService {
     @Autowired 
     private IGalpaoRepositoryJPA gr;
 
-    public Pedido postPedido(Pedido ped){
-        postOrcamento(ped, 0);
-        return ped;
+    public void postPedido(PedidoDTO ped){
+        Pedido pedido = new Pedido(ped.getName());
+        List<Item> aux = new ArrayList<Item>();
+        for (ItemDTO itens : ped.getItems()){
+            Item item = new Item();
+            item.setProdId(itens.getProdId());
+            item.setQuantidade(itens.getQuantidade());
+            aux.add(item);
+        }
+        pedido.setLista(aux);
+        pr.save(pedido);
+        postOrcamento(pedido, 0);
     }
 
     public List<Pedido> getPedidos() {
@@ -49,9 +61,9 @@ public class VendasService {
     public Orcamento postOrcamento(Pedido ped, int data){
         int somatorio = 0;
         for(Item item : ped.getListaProd()){
-            Optional<Produto> aux = gr.findAll().stream().filter(p -> p.getCod() == item.getProdId()).findFirst();
-            if(aux.isPresent()){
-                Produto prod = aux.get();
+            Optional<Produto> prods = gr.findAll().stream().filter(p -> p.getCod() == item.getProdId()).findFirst();
+            if(prods.isPresent()){
+                Produto prod = prods.get();
                 somatorio += prod.getPreco();
             }
         }

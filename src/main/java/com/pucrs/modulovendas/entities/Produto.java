@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private Long cod;
     private String desc;
     private int preco;

@@ -1,10 +1,10 @@
 package com.pucrs.modulovendas.entities;
 
 public class ItemDTO {
-    private int prodId;
+    private int prodcod;
     private int quantidade;
-    public int getProdId() {
-        return prodId;
+    public int getProdcod() {
+        return prodcod;
     }
     public int getQuantidade() {
         return quantidade;

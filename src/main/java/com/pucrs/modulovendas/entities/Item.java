@@ -13,27 +13,23 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cl_cod")
     private Long cod;
-    @Column(name = "cl_prodId")
-    private int prodId;
+    @Column(name = "cl_prodcod")
+    private int prodCod;
     @Column(name = "cl_quantidade")
     private int quantidade;
 
-    public void setProdId(int prodId) {
-        this.prodId = prodId;
+    public void setProdcod(int prodcod) {
+        this.prodCod = prodcod;
     }
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
     public int getProdId() {
-        return prodId;
+        return prodCod;
     }
     public int getQuantidade() {
         return quantidade;
     }
-    @Override
-    public String toString() {
-        return "Item [prodId=" + prodId + ", quantidade=" + quantidade + "]";
-    }
-    
+   
     
 }

@@ -44,6 +44,9 @@ public class Pedido {
     public List<Item> getListaProd() {
         return lista;
     }
+    public Long getCod() {
+        return cod;
+    }
     @Override
     public String toString() {
         return "Pedido [name=" + name + ", lista=" + lista + "]";

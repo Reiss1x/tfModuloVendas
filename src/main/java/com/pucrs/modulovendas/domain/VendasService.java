@@ -11,6 +11,7 @@ import com.pucrs.modulovendas.entities.Item;
 import com.pucrs.modulovendas.entities.Orcamento;
 import com.pucrs.modulovendas.entities.Pedido;
 import com.pucrs.modulovendas.entities.Produto;
+import com.pucrs.modulovendas.persistence.IGalpaoRepositoryJPA;
 import com.pucrs.modulovendas.persistence.IOrcamentoRepositoryJPA;
 import com.pucrs.modulovendas.persistence.IPedidosRepositoryJPA;
 
@@ -18,12 +19,14 @@ import com.pucrs.modulovendas.persistence.IPedidosRepositoryJPA;
 public class VendasService {
     
     @Autowired
-    private IOrcamentoRepositoryJPA op;
+    private IOrcamentoRepositoryJPA or;
     @Autowired
     private IPedidosRepositoryJPA pr;
+    @Autowired 
+    private IGalpaoRepositoryJPA gr;
 
-    public Pedido postPedido(Pedido ped, List<Produto> produtos){
-        postOrcamento(ped, 0, produtos);
+    public Pedido postPedido(Pedido ped){
+        postOrcamento(ped, 0);
         return ped;
     }
 
@@ -32,21 +35,21 @@ public class VendasService {
     }
 
     public List<Orcamento> getOrcamentos() {
-        return op.findAll();
+        return or.findAll();
     }
 
     public Orcamento getOrcamento(Long orcamentoId) {
-        if(op.findBycod(orcamentoId).isPresent()){
-            return op.findBycod(orcamentoId).get();
+        if(or.findBycod(orcamentoId).isPresent()){
+            return or.findBycod(orcamentoId).get();
         } else {
             throw new IllegalArgumentException("Orcamento: "+ orcamentoId +" não existe");
         }
     }
 
-    public Orcamento postOrcamento(Pedido ped, int data,List<Produto> produtos){
+    public Orcamento postOrcamento(Pedido ped, int data){
         int somatorio = 0;
         for(Item item : ped.getListaProd()){
-            Optional<Produto> aux = produtos.stream().filter(p -> p.getCod() == item.getProdId()).findFirst();
+            Optional<Produto> aux = gr.findAll().stream().filter(p -> p.getCod() == item.getProdId()).findFirst();
             if(aux.isPresent()){
                 Produto prod = aux.get();
                 somatorio += prod.getPreco();
@@ -54,15 +57,15 @@ public class VendasService {
         }
         Orcamento orc = new Orcamento(data, somatorio);
         orc.setPedido(ped);
-        op.save(orc);
+        or.save(orc);
         return orc;
     }
 
-    public Orcamento efetivarOrcamento(Long orcamentoId, List<Produto> produtos){
+    public Orcamento efetivarOrcamento(Long orcamentoId){
         Orcamento orc = getOrcamento(orcamentoId);
         Pedido p = orc.getPedido();
         for (Item item : p.getListaProd()){
-            Optional<Produto> aux = produtos.stream().filter(i -> i.getCod() == item.getProdId()).findFirst();
+            Optional<Produto> aux = gr.findAll().stream().filter(i -> i.getCod() == item.getProdId()).findFirst();
             if(aux.isPresent()){
                 Produto prod = aux.get();
                 if(!(prod.getQnt() >= item.getQuantidade())){
@@ -72,7 +75,7 @@ public class VendasService {
             
         }
         for (Item item : p.getListaProd()){
-            Optional<Produto> aux = produtos.stream().filter(i -> i.getCod() == item.getProdId()).findFirst();
+            Optional<Produto> aux = gr.findAll().stream().filter(i -> i.getCod() == item.getProdId()).findFirst();
             if(aux.isPresent()){
                 Produto prod = aux.get();
                 prod.setQnt(prod.getQnt() - item.getQuantidade());
@@ -83,6 +86,6 @@ public class VendasService {
     }
 
     public List<Orcamento> getRelatorio() {
-        return op.findAll().stream().filter(x -> x.getEfetivado() == true).collect(Collectors.toList());
+        return or.findAll().stream().filter(x -> x.getEfetivado() == true).collect(Collectors.toList());
     }
 }

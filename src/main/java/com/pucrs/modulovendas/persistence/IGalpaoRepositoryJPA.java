@@ -10,8 +10,4 @@ import com.pucrs.modulovendas.entities.Produto;
 public interface IGalpaoRepositoryJPA extends CrudRepository<Produto, Long> {
     Optional<Produto> findByCod(Long cod);
     List<Produto> findAll();
-
-    // public <T> Produto getProd(T prodId);
-    // public List<Produto> getProds();
-    // public void addProd(Produto prod);
 }

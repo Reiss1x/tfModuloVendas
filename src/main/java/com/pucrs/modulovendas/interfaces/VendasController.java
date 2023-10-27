@@ -10,46 +10,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pucrs.modulovendas.domain.EstoqueService;
 import com.pucrs.modulovendas.domain.VendasService;
 import com.pucrs.modulovendas.entities.Orcamento;
 import com.pucrs.modulovendas.entities.Pedido;
-import com.pucrs.modulovendas.entities.Produto;
+
 
 @RestController
-public class LojaController {
-    
-    @Autowired
-    private EstoqueService es;
+public class VendasController {
     @Autowired
     private VendasService vs;
-
-    @GetMapping
-    public String home(){
-        return "Bem-Vindo a loja.";
-    }
-    
-    //Criar produtos
-    @PostMapping("/home/produtos/criar")
-    public void postProds(@RequestBody List<Produto> produtos)
-    {
-        for(Produto p : produtos){
-            es.postProduto(p);
-        }
-    }
-
-    //buscar produtos
-    @GetMapping("/home/produtos")
-    public List<Produto> getProds(){
-        return es.getProds();
-    }
 
     //Criar pedidos
     @PostMapping("/home/pedidos/criar")
     public List<Pedido> postPedido(@RequestBody List<Pedido> pedidos){
-        List<Produto> produtosEstoque = es.getProds();
         for(Pedido p : pedidos){
-            vs.postPedido(p, produtosEstoque);
+            vs.postPedido(p);
         }
         return pedidos;
     }
@@ -75,8 +50,7 @@ public class LojaController {
     //efetuar compra
     @GetMapping("/admin/orcamentos/{orcamentoId}/efetivar")
     public Orcamento efetivarOrcamento(@PathVariable Long orcamentoId){
-        List<Produto> listaProd = es.getProds();
-        return vs.efetivarOrcamento(orcamentoId, listaProd);
+        return vs.efetivarOrcamento(orcamentoId);
     }
 
     //get relatorios

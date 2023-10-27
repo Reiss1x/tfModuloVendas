@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pucrs.modulovendas.domain.VendasService;
 import com.pucrs.modulovendas.entities.Orcamento;
 import com.pucrs.modulovendas.entities.Pedido;
+import com.pucrs.modulovendas.entities.PedidoDTO;
 
 
 @RestController
@@ -22,11 +23,10 @@ public class VendasController {
 
     //Criar pedidos
     @PostMapping("/home/pedidos/criar")
-    public List<Pedido> postPedido(@RequestBody List<Pedido> pedidos){
-        for(Pedido p : pedidos){
+    public void postPedido(@RequestBody List<PedidoDTO> pedidos){
+        for(PedidoDTO p : pedidos){
             vs.postPedido(p);
         }
-        return pedidos;
     }
 
     //visualizar pedidos

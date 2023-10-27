@@ -3,6 +3,9 @@ package com.pucrs.modulovendas.interfaces;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,39 +26,41 @@ public class VendasController {
 
     //Criar pedidos
     @PostMapping("/home/pedidos/criar")
-    public void postPedido(@RequestBody List<PedidoDTO> pedidos){
+    public ResponseEntity<List<PedidoDTO>> postPedido(@RequestBody List<PedidoDTO> pedidos){
         for(PedidoDTO p : pedidos){
             vs.postPedido(p);
         }
+        return new ResponseEntity<List<PedidoDTO>>(pedidos, HttpStatus.OK);
     }
 
     //visualizar pedidos
     @GetMapping("/admin/pedidos")
-    public List<Pedido> getPedidos(){
-        return vs.getPedidos();
+    public ResponseEntity<List<Pedido>> getPedidos(){
+        return new ResponseEntity<List<Pedido>>(vs.getPedidos(), HttpStatus.OK);
     }
 
     //solicitar orcamento específico (visualizar)
     @GetMapping("/admin/pedidos/{pedidoId}/solicitarOrcamento")
-    public String postSolicitarOrcamento(@PathVariable Long pedidoId){
-        return vs.getOrcamento(pedidoId).toString();
+    public ResponseEntity<String> postSolicitarOrcamento(@PathVariable Long pedidoId){
+        return new ResponseEntity<String>(vs.getOrcamento(pedidoId).toString(), HttpStatus.OK);
     }
 
     //visualizar orcamentos não efetivados
     @GetMapping("/admin/orcamentos")
-    public List<Orcamento> getOrcamentos(){
-        return vs.getOrcamentos();
+    public ResponseEntity<List<Orcamento>> getOrcamentos(){
+        return new ResponseEntity<List<Orcamento>>(vs.getOrcamentos(), HttpStatus.OK);
     } 
 
     //efetuar compra
     @GetMapping("/admin/orcamentos/{orcamentoId}/efetivar")
-    public Orcamento efetivarOrcamento(@PathVariable Long orcamentoId){
-        return vs.efetivarOrcamento(orcamentoId);
+    public ResponseEntity<String> efetivarOrcamento(@PathVariable Long orcamentoId){
+        vs.efetivarOrcamento(orcamentoId);
+        return new ResponseEntity<String>("Orcamento Efetivado.", HttpStatus.OK);
     }
 
     //get relatorios
     @GetMapping("/admin/relatorio")
-    public List<Orcamento> getRelatorio(@RequestParam int num){
-        return vs.getRelatorio().subList(0, num);
+    public ResponseEntity<List<Orcamento>> getRelatorio(@RequestParam int num){
+        return new ResponseEntity<List<Orcamento>>(vs.getRelatorio().subList(0, num), HttpStatus.OK);
     }
 }

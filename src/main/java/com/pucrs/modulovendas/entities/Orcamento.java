@@ -13,8 +13,6 @@ public class Orcamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cl_cod")
     private Long cod;
-    @Column(name = "cl_id")
-    private int id;
     @Column(name = "cl_data")
     private int data;
     @Column(name = "cl_nomeCliente")
@@ -24,13 +22,14 @@ public class Orcamento {
     @Column(name = "cl_somatorio")
     private int somatorio;
     @Column(name = "cl_efetivado")
-    private Boolean efetivado;
+    private Boolean efetivado = false;
     
     
-    public Orcamento(int data, int somatorio) {}
+    public Orcamento() {}
 
-    protected Orcamento(){
-        
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
     }
 
     public Boolean getEfetivado() {
@@ -42,12 +41,7 @@ public class Orcamento {
     }
     public Pedido getPedido() {
         return pedido;
-    }
-    public int getId() {
-        return id;
-    }
-
-    
+    }   
 
     public void setData(int data) {
         this.data = data;

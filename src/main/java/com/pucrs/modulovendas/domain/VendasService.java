@@ -18,6 +18,9 @@ import com.pucrs.modulovendas.persistence.IGalpaoRepositoryJPA;
 import com.pucrs.modulovendas.persistence.IOrcamentoRepositoryJPA;
 import com.pucrs.modulovendas.persistence.IPedidosRepositoryJPA;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 @Service
 public class VendasService {
     
@@ -27,13 +30,15 @@ public class VendasService {
     private IPedidosRepositoryJPA pr;
     @Autowired 
     private IGalpaoRepositoryJPA gr;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public void postPedido(PedidoDTO ped){
         Pedido pedido = new Pedido(ped.getName());
         List<Item> aux = new ArrayList<Item>();
         for (ItemDTO itens : ped.getItems()){
             Item item = new Item();
-            item.setProdId(itens.getProdId());
+            item.setProdcod(itens.getProdcod());
             item.setQuantidade(itens.getQuantidade());
             aux.add(item);
         }
@@ -67,8 +72,11 @@ public class VendasService {
                 somatorio += prod.getPreco();
             }
         }
-        Orcamento orc = new Orcamento(data, somatorio);
+        Orcamento orc = new Orcamento();
+        orc.setData(data);
+        orc.setSomatorio(somatorio);
         orc.setPedido(ped);
+        orc.setNomeCliente(ped.getNomeCliente());
         or.save(orc);
         return orc;
     }
@@ -91,9 +99,11 @@ public class VendasService {
             if(aux.isPresent()){
                 Produto prod = aux.get();
                 prod.setQnt(prod.getQnt() - item.getQuantidade());
+                gr.save(prod);
             }    
         }
         orc.setEfetivado();
+        or.save(orc);
         return orc;
     }
 

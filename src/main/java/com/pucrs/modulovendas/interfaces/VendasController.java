@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,7 +57,7 @@ public class VendasController {
         return new ResponseEntity<String>("Orcamento Efetivado.", HttpStatus.OK);
     }
 
-    //get relatorios
+    //get relatorios de orcamentos
     @GetMapping("/admin/relatorio")
     public ResponseEntity<List<Orcamento>> getRelatorio(@RequestParam int num){
         return new ResponseEntity<List<Orcamento>>(vs.getRelatorio().subList(0, num), HttpStatus.OK);

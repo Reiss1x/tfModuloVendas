@@ -72,8 +72,8 @@ public class VendasController {
     }
 
     //get relatorios de orcamentos
-    @GetMapping("/admin/relatorio")
-    public ResponseEntity<List<Orcamento>> getRelatorio(@RequestParam int num){
+    @GetMapping("/admin/relatorio/{num}")
+    public ResponseEntity<List<Orcamento>> getRelatorio(@PathVariable int num){
         return new ResponseEntity<List<Orcamento>>(getRelatorio.execute().subList(0, num), HttpStatus.OK);
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pucrs.modulovendas.core.domain.Orcamento;
 
+import org.springframework.stereotype.Service;
+@Service
 public class GetAllOrcCase {
     
     @Autowired

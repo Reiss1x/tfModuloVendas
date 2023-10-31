@@ -9,6 +9,8 @@ import com.pucrs.modulovendas.core.domain.Orcamento;
 import com.pucrs.modulovendas.core.domain.Pedido;
 import com.pucrs.modulovendas.core.domain.Produto;
 
+import org.springframework.stereotype.Service;
+@Service
 public class EfetivarOrcCase {
     @Autowired
     private OrcamentoRepo or;

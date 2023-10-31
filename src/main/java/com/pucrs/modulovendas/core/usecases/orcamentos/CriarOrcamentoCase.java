@@ -3,12 +3,16 @@ package com.pucrs.modulovendas.core.usecases.orcamentos;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pucrs.modulovendas.core.domain.Item;
 import com.pucrs.modulovendas.core.domain.Orcamento;
 import com.pucrs.modulovendas.core.domain.Pedido;
 import com.pucrs.modulovendas.core.domain.Produto;
 
+
+
+@Service
 public class CriarOrcamentoCase {
     
     @Autowired

@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pucrs.modulovendas.core.domain.Orcamento;
 
-/**
- * GetOrcById
- */
+import org.springframework.stereotype.Service;
+@Service
 public class GetOrcByCodCase {
 
     @Autowired

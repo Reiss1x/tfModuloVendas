@@ -11,6 +11,9 @@ import com.pucrs.modulovendas.core.domain.Pedido;
 import com.pucrs.modulovendas.core.domain.PedidoDTO;
 import com.pucrs.modulovendas.core.usecases.orcamentos.CriarOrcamentoCase;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CriarPedidoCase {
     
     @Autowired

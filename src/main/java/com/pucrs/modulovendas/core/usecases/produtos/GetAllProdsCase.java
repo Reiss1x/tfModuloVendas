@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.pucrs.modulovendas.core.domain.Produto;
 import com.pucrs.modulovendas.core.usecases.orcamentos.GalpaoRepo;
 
+
+import org.springframework.stereotype.Service;
+@Service
 public class GetAllProdsCase {
     @Autowired
     private GalpaoRepo gr;

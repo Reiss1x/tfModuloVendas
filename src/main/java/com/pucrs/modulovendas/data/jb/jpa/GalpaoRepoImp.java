@@ -3,6 +3,7 @@ package com.pucrs.modulovendas.data.jb.jpa;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pucrs.modulovendas.core.domain.Produto;
@@ -10,7 +11,7 @@ import com.pucrs.modulovendas.core.usecases.orcamentos.GalpaoRepo;
 
 @Repository
 public class GalpaoRepoImp implements GalpaoRepo {
-
+    @Autowired
     private JpaGalpaoRepo repo;
 
     @Override

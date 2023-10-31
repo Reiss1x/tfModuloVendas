@@ -1,4 +1,4 @@
-package com.pucrs.modulovendas.entities;
+package com.pucrs.modulovendas.core.domain;
 
 public class ItemDTO {
     private int prodcod;

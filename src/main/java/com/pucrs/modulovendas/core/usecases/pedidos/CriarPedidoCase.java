@@ -21,17 +21,20 @@ public class CriarPedidoCase {
     @Autowired
     private CriarOrcamentoCase criarOrcamento;
     
-    public void execute(PedidoDTO ped){
-        Pedido pedido = new Pedido(ped.getName());
-        List<Item> aux = new ArrayList<Item>();
-        for (ItemDTO itens : ped.getItems()){
-            Item item = new Item();
-            item.setProdcod(itens.getProdcod());
-            item.setQuantidade(itens.getQuantidade());
-            aux.add(item);
+    public List<PedidoDTO> execute(List<PedidoDTO> ped){
+        for(PedidoDTO pedDTO : ped){
+            Pedido pedido = new Pedido(pedDTO.getName());
+            List<Item> aux = new ArrayList<Item>();
+            for (ItemDTO itens : pedDTO.getItems()){
+                Item item = new Item();
+                item.setProdcod(itens.getProdcod());
+                item.setQuantidade(itens.getQuantidade());
+                aux.add(item);
+            }
+            pedido.setLista(aux);
+            pr.persist(pedido);
+            criarOrcamento.execute(pedido, 0);
         }
-        pedido.setLista(aux);
-        pr.persist(pedido);
-        criarOrcamento.execute(pedido, 0);
+        return ped;
     }
 }

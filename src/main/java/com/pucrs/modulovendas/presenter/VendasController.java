@@ -27,7 +27,6 @@ import com.pucrs.modulovendas.core.usecases.pedidos.GetAllPedidosCase;
 @RestController
 public class VendasController {
     
-    
     @Autowired
     private CriarPedidoCase criarPedido;
     @Autowired
@@ -44,10 +43,7 @@ public class VendasController {
     //Criar pedidos
     @PostMapping("/home/pedidos/criar")
     public ResponseEntity<List<PedidoDTO>> postPedido(@RequestBody List<PedidoDTO> pedidos){
-        for(PedidoDTO p : pedidos){
-            criarPedido.execute(p);
-        }
-        return new ResponseEntity<List<PedidoDTO>>(pedidos, HttpStatus.OK);
+        return new ResponseEntity<List<PedidoDTO>>(criarPedido.execute(pedidos), HttpStatus.OK);
     }
 
     //visualizar pedidos
@@ -71,8 +67,8 @@ public class VendasController {
     //efetuar compra
     @GetMapping("/admin/orcamentos/{orcamentoId}/efetivar")
     public ResponseEntity<String> efetivarOrcamento(@PathVariable Long orcamentoId){
-        efetivarOrc.execute(orcamentoId);
-        return new ResponseEntity<String>("Orcamento Efetivado.", HttpStatus.OK);
+        
+        return new ResponseEntity<String>(efetivarOrc.execute(orcamentoId), HttpStatus.OK);
     }
 
     //get relatorios de orcamentos

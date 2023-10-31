@@ -1,5 +1,7 @@
 package com.pucrs.modulovendas.core.usecases.produtos;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pucrs.modulovendas.core.domain.Produto;
@@ -12,7 +14,10 @@ public class CriarProdutoCase {
     @Autowired
     private GalpaoRepo gr;
 
-    public Produto execute(Produto produto){
-        return gr.persist(produto);
+    public List<Produto> execute(List<Produto> produto){
+        for(Produto p : produto){
+            gr.persist(p);
+        }
+        return produto;
     }
 }

@@ -24,12 +24,8 @@ public class EstoqueController {
 
     //Criar produtos
     @PostMapping("/home/produtos/criar")
-    public ResponseEntity<List<Produto>> postProds(@RequestBody List<Produto> produtos)
-    {
-        for(Produto p : produtos){
-            criarProduto.execute(p);
-        }
-        return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
+    public ResponseEntity<List<Produto>> postProds(@RequestBody List<Produto> produtos){
+        return new ResponseEntity<List<Produto>>(criarProduto.execute(produtos), HttpStatus.OK);
     }
 
     //buscar produtos

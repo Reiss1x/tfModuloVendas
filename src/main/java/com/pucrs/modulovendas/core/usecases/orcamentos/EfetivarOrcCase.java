@@ -19,7 +19,7 @@ public class EfetivarOrcCase {
     @Autowired
     private GalpaoRepo gr;
 
-    public Orcamento execute(Long orcamentoId){
+    public String execute(Long orcamentoId){
         Orcamento orc = getOrc.execute(orcamentoId);
         Pedido p = orc.getPedido();
         for (Item item : p.getListaProd()){
@@ -42,7 +42,7 @@ public class EfetivarOrcCase {
         }
         orc.setEfetivado();
         or.persist(orc);
-        return orc;
+        return "Orcamento efetivado.";
     }
     
 }

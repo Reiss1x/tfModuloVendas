@@ -1,4 +1,4 @@
-package com.pucrs.modulovendas.entities;
+package com.pucrs.modulovendas.core.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

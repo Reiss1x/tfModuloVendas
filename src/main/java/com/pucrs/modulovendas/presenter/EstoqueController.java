@@ -1,4 +1,4 @@
-package com.pucrs.modulovendas.interfaces;
+package com.pucrs.modulovendas.presenter;
 
 import java.util.List;
 
@@ -10,21 +10,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pucrs.modulovendas.domain.EstoqueService;
-import com.pucrs.modulovendas.entities.Produto;
+import com.pucrs.modulovendas.core.domain.Produto;
+import com.pucrs.modulovendas.core.usecases.produtos.CriarProdutoCase;
+import com.pucrs.modulovendas.core.usecases.produtos.GetAllProdsCase;
 
 @RestController
 public class EstoqueController {
     
     @Autowired
-    private EstoqueService es;
+    private CriarProdutoCase criarProduto;
+    @Autowired
+    private GetAllProdsCase getProds;
 
     //Criar produtos
     @PostMapping("/home/produtos/criar")
     public ResponseEntity<List<Produto>> postProds(@RequestBody List<Produto> produtos)
     {
         for(Produto p : produtos){
-            es.postProduto(p);
+            criarProduto.execute(p);
         }
         return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
     }
@@ -32,7 +35,7 @@ public class EstoqueController {
     //buscar produtos
     @GetMapping("/home/produtos")
     public ResponseEntity<List<Produto>> getProds(){
-        return new ResponseEntity<List<Produto>>(es.getProds(), HttpStatus.OK);
+        return new ResponseEntity<List<Produto>>(getProds.execute(), HttpStatus.OK);
     }
 
     

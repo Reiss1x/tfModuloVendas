@@ -14,13 +14,13 @@ public class Orcamento {
     @Column(name = "cl_cod")
     private Long cod;
     @Column(name = "cl_data")
-    private int data;
+    private String data;
     @Column(name = "cl_nomeCliente")
     private String nomeCliente;
     @OneToOne
     private Pedido pedido;
     @Column(name = "cl_somatorio")
-    private int somatorio;
+    private double somatorio;
     @Column(name = "cl_efetivado")
     private Boolean efetivado = false;
     
@@ -40,10 +40,10 @@ public class Orcamento {
         this.efetivado = true;
     }
     public Pedido getPedido() {
-        return pedido;
+        return pedido; 
     }   
 
-    public void setData(int data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -53,6 +53,15 @@ public class Orcamento {
 
     public void setSomatorio(int somatorio) {
         this.somatorio = somatorio;
+    }
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+    public double getSomatorio() {
+        return somatorio;
+    }
+    public String getData() {
+        return data;
     }
 
     @Override

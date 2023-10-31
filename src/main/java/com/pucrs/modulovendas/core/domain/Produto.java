@@ -13,7 +13,7 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cod;
     private String desc;
-    private int preco;
+    private double preco;
     @Column(name = "cl_qntmin")
     private int qntMin;
     @Column(name = "cl_qntmax")
@@ -30,7 +30,7 @@ public class Produto {
     public String getDesc() {
         return desc;
     }
-    public int getPreco() {
+    public double getPreco() {
         return preco;
     }
 

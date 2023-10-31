@@ -1,5 +1,7 @@
 package com.pucrs.modulovendas.core.usecases.orcamentos;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,11 @@ public class CriarOrcamentoCase {
     @Autowired
     private GalpaoRepo gr;
 
-    public Orcamento execute(Pedido ped, int data){
+    public Orcamento execute(Pedido ped){
+        LocalDate dataAtual = LocalDate.now();
+        DateTimeFormatter fomatador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String data = dataAtual.format(fomatador);
+        
         int somatorio = 0;
         for(Item item : ped.getListaProd()){
             Optional<Produto> prods = gr.findAll().stream().filter(p -> p.getCod() == item.getProdId()).findFirst();

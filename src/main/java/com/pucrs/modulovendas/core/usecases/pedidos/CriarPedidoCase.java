@@ -33,7 +33,7 @@ public class CriarPedidoCase {
             }
             pedido.setLista(aux);
             pr.persist(pedido);
-            criarOrcamento.execute(pedido, 0);
+            criarOrcamento.execute(pedido);
         }
         return ped;
     }

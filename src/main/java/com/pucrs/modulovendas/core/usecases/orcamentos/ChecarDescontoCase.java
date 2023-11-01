@@ -18,7 +18,7 @@ public class ChecarDescontoCase {
         double desconto = primeiroDesconto(orcs, clienteName);
         double desconto2 = segundoDesconto(orcs, clienteName);
 
-        if(desconto > desconto2){ return desconto; } else { return desconto2 }
+        if(desconto > desconto2){ return desconto; } else { return desconto2; }
         
         
         
@@ -54,7 +54,7 @@ public class ChecarDescontoCase {
     }
 
     public Double segundoDesconto(List<Orcamento> orcs, String clienteName){
-        int count = 0;
+        long count = 0;
         double somaCompras = 0;
         double desconto = 0;
         for(Orcamento orc : orcs){
@@ -63,6 +63,17 @@ public class ChecarDescontoCase {
                 somaCompras+= orc.getSomatorio();
             }
         }
-        if(count >= 10)
+
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dataAtual = LocalDate.now();
+
+        count = orcs.stream().filter(obj -> {
+        LocalDate dataObjeto = LocalDate.parse(obj.getData(), formatador);
+        return dataObjeto.isAfter(dataAtual.minusMonths(6));
+        }).count();
+        
+        if(count >= 10){
+            return desconto = 25;
+        } else { return 0.0;}
     }
 }

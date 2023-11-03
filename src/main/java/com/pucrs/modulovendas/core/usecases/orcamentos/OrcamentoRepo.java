@@ -10,5 +10,6 @@ import com.pucrs.modulovendas.core.domain.Orcamento;
 public interface OrcamentoRepo {
     Optional<Orcamento> findByCod(Long cod);
     List<Orcamento> findAll();
+    List<Orcamento> findBynomeCliente(String nomeCliente);
     Orcamento persist(Orcamento orc);
 }

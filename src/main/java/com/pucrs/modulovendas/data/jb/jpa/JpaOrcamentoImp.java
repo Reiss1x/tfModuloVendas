@@ -10,4 +10,5 @@ import com.pucrs.modulovendas.core.domain.Orcamento;
 public interface JpaOrcamentoImp extends CrudRepository<Orcamento, Long> {
     List<Orcamento> findAll();
     Optional<Orcamento> findBycod(Long cod);
+    List<Orcamento> findBynomeCliente(String nomeCliente);
 }

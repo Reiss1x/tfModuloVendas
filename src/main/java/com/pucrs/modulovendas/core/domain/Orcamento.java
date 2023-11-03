@@ -21,8 +21,14 @@ public class Orcamento {
     private Pedido pedido;
     @Column(name = "cl_somatorio")
     private double somatorio;
+    @Column(name = "cl_desconto")
+    private double desconto;
     @Column(name = "cl_efetivado")
     private Boolean efetivado = false;
+    @Column(name = "cl_imposto")
+    private double imposto = 0.10;
+    @Column(name = "cl_precoFinal")
+    private double precoFinal;
     
     
     public Orcamento() {}
@@ -34,6 +40,17 @@ public class Orcamento {
 
     public Boolean getEfetivado() {
         return efetivado;
+    }
+
+    public double getImposto() {
+        return imposto;
+    }
+
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
+    }
+    public void setPrecoFinal(double precoFinal) {
+        this.precoFinal = precoFinal;
     }
 
     public void setEfetivado() {
@@ -51,7 +68,7 @@ public class Orcamento {
         this.pedido = pedido;
     }
 
-    public void setSomatorio(int somatorio) {
+    public void setSomatorio(double somatorio) {
         this.somatorio = somatorio;
     }
     public String getNomeCliente() {
@@ -63,7 +80,9 @@ public class Orcamento {
     public String getData() {
         return data;
     }
-
+    public double getDesconto() {
+        return desconto;
+    }
     @Override
     public String toString() {
         return "Orcamento [data=" + data + ", nomeCliente=" + nomeCliente + ", pedido=" + pedido

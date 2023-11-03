@@ -28,5 +28,10 @@ public class OrcamentoRepoImp implements OrcamentoRepo {
     public Orcamento persist(Orcamento orc) {
         return repo.save(orc);
     }
+
+    @Override
+    public List<Orcamento> findBynomeCliente(String nomeCliente) {
+        return repo.findBynomeCliente(nomeCliente);
+    }
     
 }

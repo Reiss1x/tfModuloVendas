@@ -21,23 +21,27 @@ public class CriarOrcamentoCase {
     private OrcamentoRepo or;
     @Autowired
     private GalpaoRepo gr;
-
+    @Autowired
+    private ChecarDescontoCase checarDesconto;
+    
     public Orcamento execute(Pedido ped){
         LocalDate dataAtual = LocalDate.now();
         DateTimeFormatter fomatador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String data = dataAtual.format(fomatador);
         
-        int somatorio = 0;
+        double somatorio = 0;
         for(Item item : ped.getListaProd()){
             Optional<Produto> prods = gr.findAll().stream().filter(p -> p.getCod() == item.getProdId()).findFirst();
             if(prods.isPresent()){
                 Produto prod = prods.get();
-                somatorio += prod.getPreco();
+                somatorio += prod.getPreco() * item.getQuantidade();
             }
         }
+        double desconto = checarDesconto.execute(ped.getNomeCliente());
         Orcamento orc = new Orcamento();
         orc.setData(data);
         orc.setSomatorio(somatorio);
+        orc.setDesconto(desconto);
         orc.setPedido(ped);
         orc.setNomeCliente(ped.getNomeCliente());
         or.persist(orc);

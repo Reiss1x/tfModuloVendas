@@ -40,6 +40,9 @@ public class EfetivarOrcCase {
                 gr.persist(prod);
             }    
         }
+        double precoFinal = orc.getSomatorio() - (orc.getSomatorio() * orc.getDesconto());
+        precoFinal += precoFinal * orc.getImposto();
+        orc.setPrecoFinal(precoFinal);
         orc.setEfetivado();
         or.persist(orc);
         return "Orcamento efetivado.";

@@ -23,6 +23,8 @@ public class CriarOrcamentoCase {
     private GalpaoRepo gr;
     @Autowired
     private ChecarDescontoCase checarDesconto;
+    @Autowired
+    private SetValidadeCase setValidade;
     
     public Orcamento execute(Pedido ped){
         LocalDate dataAtual = LocalDate.now();
@@ -40,6 +42,7 @@ public class CriarOrcamentoCase {
         double desconto = checarDesconto.execute(ped.getNomeCliente());
         Orcamento orc = new Orcamento();
         orc.setData(data);
+        orc.setDataLimite(setValidade.execute(data));
         orc.setSomatorio(somatorio);
         orc.setDesconto(desconto);
         orc.setPedido(ped);

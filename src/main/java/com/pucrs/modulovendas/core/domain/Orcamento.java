@@ -15,6 +15,8 @@ public class Orcamento {
     private Long cod;
     @Column(name = "cl_data")
     private String data;
+    @Column(name = "cl_dataLimite")
+    private String dataLimite;
     @Column(name = "cl_nomeCliente")
     private String nomeCliente;
     @OneToOne
@@ -30,7 +32,6 @@ public class Orcamento {
     @Column(name = "cl_precoFinal")
     private double precoFinal;
     
-    
     public Orcamento() {}
 
 
@@ -41,7 +42,9 @@ public class Orcamento {
     public Boolean getEfetivado() {
         return efetivado;
     }
-
+    public void setDataLimite(String dataLimite) {
+        this.dataLimite = dataLimite;
+    }
     public double getImposto() {
         return imposto;
     }

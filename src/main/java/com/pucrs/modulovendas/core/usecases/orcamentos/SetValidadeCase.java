@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.stereotype.Service;
+@Service
 public class SetValidadeCase {
     
     public String execute(String dataStr){

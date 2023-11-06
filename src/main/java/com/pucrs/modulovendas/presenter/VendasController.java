@@ -17,7 +17,7 @@ import com.pucrs.modulovendas.core.domain.PedidoDTO;
 import com.pucrs.modulovendas.core.usecases.orcamentos.EfetivarOrcCase;
 import com.pucrs.modulovendas.core.usecases.orcamentos.GetAllOrcCase;
 import com.pucrs.modulovendas.core.usecases.orcamentos.GetOrcByCodCase;
-import com.pucrs.modulovendas.core.usecases.orcamentos.GetRelatorioCase;
+import com.pucrs.modulovendas.core.usecases.orcamentos.GetRelatorioEstatisticoCase;
 import com.pucrs.modulovendas.core.usecases.pedidos.CriarPedidoCase;
 import com.pucrs.modulovendas.core.usecases.pedidos.GetAllPedidosCase;
 
@@ -37,7 +37,7 @@ public class VendasController {
     @Autowired
     private EfetivarOrcCase efetivarOrc;
     @Autowired
-    private GetRelatorioCase getRelatorio;
+    private GetRelatorioEstatisticoCase getEstatistica;
 
     //Criar pedidos
     @PostMapping("/home/pedidos/criar")
@@ -71,8 +71,8 @@ public class VendasController {
     }
 
     //get relatorios de orcamentos
-    @GetMapping("/admin/relatorio/{num}")
-    public ResponseEntity<List<Orcamento>> getRelatorio(@PathVariable int num){
-        return new ResponseEntity<List<Orcamento>>(getRelatorio.execute().subList(0, num), HttpStatus.OK);
+    @GetMapping("/admin/relatorio")
+    public ResponseEntity<List<String>> getRelatorioAnálise(){
+        return new ResponseEntity<List<String>>(getEstatistica.execute(), HttpStatus.OK);
     }
 }

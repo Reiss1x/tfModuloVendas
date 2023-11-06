@@ -64,7 +64,7 @@ public class EfetivarOrcCase {
 
     public boolean getValidade(String dataFinal){
         LocalDate dataAtual = LocalDate.now();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate dataValidade = LocalDate.parse(dataFinal, dateFormatter);
 
         return dataValidade.isBefore(dataAtual);

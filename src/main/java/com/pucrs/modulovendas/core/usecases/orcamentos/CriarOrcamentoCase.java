@@ -11,7 +11,6 @@ import com.pucrs.modulovendas.core.domain.Item;
 import com.pucrs.modulovendas.core.domain.Orcamento;
 import com.pucrs.modulovendas.core.domain.Pedido;
 import com.pucrs.modulovendas.core.domain.Produto;
-import com.pucrs.modulovendas.core.domain.ProdutoNaoExisteException;
 
 
 

@@ -1,6 +1,7 @@
 package com.pucrs.modulovendas.presenter;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.pucrs.modulovendas.core.domain.Orcamento;
 import com.pucrs.modulovendas.core.domain.Pedido;
 import com.pucrs.modulovendas.core.domain.PedidoDTO;
+import com.pucrs.modulovendas.core.usecases.orcamentos.EfetivarAllOrcs;
 import com.pucrs.modulovendas.core.usecases.orcamentos.EfetivarOrcCase;
 import com.pucrs.modulovendas.core.usecases.orcamentos.GetAllOrcCase;
 import com.pucrs.modulovendas.core.usecases.orcamentos.GetOrcByCodCase;
@@ -38,6 +39,8 @@ public class VendasController {
     private EfetivarOrcCase efetivarOrc;
     @Autowired
     private GetRelatorioEstatisticoCase getEstatistica;
+    @Autowired
+    private EfetivarAllOrcs efetivarOrcs;
 
     //Criar pedidos
     @PostMapping("/home/pedidos/criar")
@@ -69,10 +72,14 @@ public class VendasController {
         
         return new ResponseEntity<String>(efetivarOrc.execute(orcamentoId), HttpStatus.OK);
     }
+    @GetMapping("/admin/orcamentos/efetivar")
+    public ResponseEntity<String> efetivarAllOrcamentos(){
+        return new ResponseEntity<String>(efetivarOrcs.execute(), HttpStatus.OK);
+    }
 
-    //get relatorios de orcamentos
+    //Retorna um mapa de compradores/compras
     @GetMapping("/admin/relatorio")
-    public ResponseEntity<List<String>> getRelatorioAnálise(){
-        return new ResponseEntity<List<String>>(getEstatistica.execute(), HttpStatus.OK);
+    public ResponseEntity<Map<String, Double>> getRelatorioAnálise(){
+        return new ResponseEntity<Map<String, Double>>(getEstatistica.execute(), HttpStatus.OK);
     }
 }

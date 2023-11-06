@@ -38,6 +38,9 @@ public class Orcamento {
     public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
     }
+    public Long getCod() {
+        return cod;
+    }
 
     public Boolean getEfetivado() {
         return efetivado;

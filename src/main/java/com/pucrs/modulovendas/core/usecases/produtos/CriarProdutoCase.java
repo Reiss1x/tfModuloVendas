@@ -16,7 +16,10 @@ public class CriarProdutoCase {
 
     public List<Produto> execute(List<Produto> produto){
         for(Produto p : produto){
-            gr.persist(p);
+            if(p.getQnt()<= p.getQntMax() && p.getQnt() >= p.getQntMin()){
+                gr.persist(p);
+            }
+
         }
         return produto;
     }

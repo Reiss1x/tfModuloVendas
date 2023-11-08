@@ -6,9 +6,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pucrs.modulovendas.core.domain.Orcamento;
-
+@Service
 public class GetGastadoresCase {
     @Autowired
     private OrcamentoRepo or;

@@ -46,12 +46,14 @@ public class VendasController {
         return new ResponseEntity<String>(getOrc.execute(pedidoId).toString(), HttpStatus.OK);
     }
 
-    //efetuar compra
+    //efetuar orcamento especifico
     @GetMapping("/admin/orcamentos/{orcamentoId}/efetivar")
     public ResponseEntity<String> efetivarOrcamento(@PathVariable Long orcamentoId){
         
         return new ResponseEntity<String>(efetivarOrc.execute(orcamentoId), HttpStatus.OK);
     }
+
+    //efetivar todos orcamentos
     @GetMapping("/admin/orcamentos/efetivar")
     public ResponseEntity<String> efetivarAllOrcamentos(){
         return new ResponseEntity<String>(efetivarOrcs.execute(), HttpStatus.OK);

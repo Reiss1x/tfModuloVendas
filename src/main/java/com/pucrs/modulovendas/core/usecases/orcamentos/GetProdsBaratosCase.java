@@ -12,7 +12,7 @@ import com.pucrs.modulovendas.core.domain.Produto;
 public class GetProdsBaratosCase {
         @Autowired
         private GalpaoRepo gr;
-        public Map<String, Double> execute2(){
+        public Map<String, Double> execute(){
         
         List<Produto> prods = gr.findAll();
         Map<String, Double> somatorioPorNome = prods.stream()

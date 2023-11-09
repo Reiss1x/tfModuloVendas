@@ -14,6 +14,7 @@ import com.pucrs.modulovendas.core.domain.Pedido;
 import com.pucrs.modulovendas.core.usecases.orcamentos.GetAllOrcCase;
 import com.pucrs.modulovendas.core.usecases.orcamentos.GetCompradoresCase;
 import com.pucrs.modulovendas.core.usecases.orcamentos.GetGastadoresCase;
+import com.pucrs.modulovendas.core.usecases.orcamentos.GetProdsBaratosCase;
 import com.pucrs.modulovendas.core.usecases.pedidos.GetAllPedidosCase;
 
 @RestController
@@ -26,6 +27,8 @@ public class ConsultasController {
     private GetCompradoresCase getCompradores;
     @Autowired
     private GetGastadoresCase getGastadores;
+    @Autowired
+    private GetProdsBaratosCase getProdutos;
     
     //Retorna um mapa de compradores/compras
     @GetMapping("/admin/relatorio/compradores")
@@ -37,10 +40,10 @@ public class ConsultasController {
     public ResponseEntity<Map<String, Double>> getGastadoresRelatorio(){
         return new ResponseEntity<Map<String, Double>>(getGastadores.execute(), HttpStatus.OK);
     }
-    //retorna lista de produtos ordenados por preço
+    //retorna lista de produtos cadastrados ordenados por preço
     @GetMapping("/admin/relatorio/produtos")
     public ResponseEntity<Map<String, Double>> getProdutosRelatorio(){
-        return new ResponseEntity<Map<String, Double>>(getGastadores.execute(), HttpStatus.OK);
+        return new ResponseEntity<Map<String, Double>>(getProdutos.execute(), HttpStatus.OK);
     }
      //visualizar orcamentos não efetivados
     @GetMapping("/admin/orcamentos")

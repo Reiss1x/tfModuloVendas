@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "1c93fc9c-a208-4e81-89ad-82db9891d7aa",
+		"name": "Módulo de vendas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29441239"
+	},
+	"item": [
+		{
+			"name": "Criar produtos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"produtos\": [\r\n    {\r\n      \"cod\": 123,\r\n      \"desc\": \"Produto 1\",\r\n      \"price\": 10,\r\n      \"qntmin\": 1,\r\n      \"qntmax\": 5,\r\n      \"qnt\": 3\r\n    },\r\n    {\r\n      \"cod\": 456,\r\n      \"desc\": \"Produto 2\",\r\n      \"price\": 15,\r\n      \"qntmin\": 1,\r\n      \"qntmax\": 5,\r\n      \"qnt\": 3\r\n    },\r\n    {\r\n      \"cod\": 789,\r\n      \"desc\": \"Produto 3\",\r\n      \"price\": 20,\r\n      \"qntmin\": 1,\r\n      \"qntmax\": 5,\r\n      \"qnt\": 3\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/home/produtos/criar"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar pedidos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"NAME\": \"JOÃO\",\r\n        \"items\": [\r\n            {\r\n                \"prodcod\": 1,\r\n                \"quantidade\": 2\r\n            },\r\n            {\r\n                \"prodcod\": 3,\r\n                \"quantidade\": 1\r\n            } \r\n        ]\r\n    },\r\n    {\r\n        \"NAME\": \"GABRIEL\",\r\n        \"ITEMS\": [\r\n            {\r\n                \"prodcod\": 5,\r\n                \"quantidade\": 13\r\n            },\r\n            {\r\n                \"prodcod\": 3,\r\n                \"quantidade\": 1\r\n            }\r\n        ]\r\n    }\r\n]\r\n// {\r\n//     \"name\": \"GABRIEL\",\r\n//     \"items\": [\r\n//         {\r\n//             \"prodcod\": 6,\r\n//             \"quantidade\": 1000\r\n//         // },\r\n//         // {\r\n//         //     \"prodcod\": 3,\r\n//         //     \"quantidade\": 1\r\n//         }\r\n//     ]\r\n// }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/home/pedidos/criar"
+			},
+			"response": []
+		},
+		{
+			"name": "Testar desconto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n    \"name\": \"JOÃO\",\r\n    \"items\": [\r\n        {\r\n            \"prodcod\": 6,\r\n            \"quantidade\": 2000\r\n        }\r\n    ]\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/home/pedidos/criar"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Produtos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orcamentos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Efetivar orcamento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Efetivar todos orcs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get gastadores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get compradores",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get relatorio produtos",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

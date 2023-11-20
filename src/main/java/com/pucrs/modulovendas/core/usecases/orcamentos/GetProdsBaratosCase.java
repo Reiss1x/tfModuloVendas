@@ -6,9 +6,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pucrs.modulovendas.core.domain.Produto;
-
+@Service
 public class GetProdsBaratosCase {
         @Autowired
         private GalpaoRepo gr;

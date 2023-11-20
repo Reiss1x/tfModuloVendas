@@ -14,6 +14,9 @@ public class CalculaDescontoCase {
 
     public double calcula(String clienteName){
         double desconto = 0;
+        
+
+
         List<ICalculaDesconto> calculadoras = new ArrayList<ICalculaDesconto>();
         calculadoras.add(dez);
         calculadoras.add(tres);

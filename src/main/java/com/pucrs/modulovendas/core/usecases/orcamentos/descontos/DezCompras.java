@@ -21,7 +21,7 @@ public class DezCompras implements ICalculaDesconto {
         double desconto = 0.0;
         List<Orcamento> orcs = or.findBynomeCliente(clienteName).stream().filter(i -> i.getEfetivado() == true).collect(Collectors.toList());
 
-        if(orcs.size() >= 1){
+        if(orcs.size() >= 3){
             
             Collections.reverse(orcs);
             List<Orcamento> ultimosTres = orcs.subList(0,Math.min(3, orcs.size()));
